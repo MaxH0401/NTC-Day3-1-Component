@@ -1,0 +1,39 @@
+<script src="https://unpkg.com/vue@3"></script>
+
+<div id="app">
+  <!-- 外層 -->
+  <keep-alive>
+    <component :is='currentForm' @set-form="updateForm" :form-data='computedForm' @update='updateData'></component>
+  </keep-alive>
+  <!-- keep-alive裡面如有註解，效果會失效-->
+  <!-- 03.接到form-data事件。執行computedForm computed -->
+  <!-- 10.接到updat事件。執行updateForm -->
+</div>
+
+<script type='text/x-template' id='form1'>
+  <label>姓名</label>
+<input v-model="name"><br>
+  <label>電話</label>
+  <input v-model="phone"><br>
+
+  <input type="button" value='下一步' @click='nextSteps'>
+</script>
+
+<script type='text/x-template' id='form2'>
+  <label>地址</label>
+  <input v-model="address"><br>
+  <input type="button" value='下一步' @click='nextSteps'>
+  <input type="button" value='上一步' @click='preSteps'>
+</script>
+
+<script type='text/x-template' id='form3'>
+  <div>確認資料</div>
+  <div>姓名：{{formData.name}}</div>
+  <!-- 01.預設formDatay作為我們存資料的地方 -->
+  <div>電話：{{formData.phone}}</div>
+  <div>地址：{{formData.address}}</div>
+  
+  <input type="button" value='上一步' @click='preSteps'>
+</script>
+
+<script src='component.js'></script>
